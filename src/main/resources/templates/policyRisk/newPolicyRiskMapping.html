@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title> Policy - Risks </title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container my-2">
+    <hr>
+    <h1> Add (or Remove) Risks To This Policy :</h1>
+    <hr>
+    <h2> Your Risk List </h2>
+    <hr>
+    <br>
+
+    <table border="1" class = "table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>
+                <a th:href="@{'/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
+                    Risk Title
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
+                    Description
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
+                    Key Words
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
+                    Regex
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
+                    Risk Match Count
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
+                    Status
+                </a>
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="risk : ${listRisks}">
+            <td th:text="${risk.title}"></td>
+            <td th:text="${risk.description}"></td>
+            <td th:text="${risk.keyWords}"></td>
+            <td th:text="${risk.regex}"></td>
+            <td th:text="${risk.riskMatchCount}"></td>
+            <td th:text="${risk.status}"></td>
+            <td>
+                <a th:href="@{/policyRisk/savePolicyRiskMapping/{policyId}/{riskId}(policyId=${session.policyId}, riskId=${risk.id})}" class="btn btn-primary"> Add </a>
+                <a th:href="@{/policyRisk/deletePolicyRiskMapping/{policyId}/{riskId}(policyId=${session.policyId}, riskId=${risk.id})}" class="btn btn-danger"> Remove </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/policy}" class="btn btn-success btn-sm mb-3"> Save Policy </a>
+
+    <div th:if="${totalPages > 1}">
+        <div class="row col-sm-10">
+            Total Rows : [[${totalItems}]]
+        </div>
+        <div class = "col-sm-1">
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+						<a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"> [[${i}]] </a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+					</span>
+        </div>
+        <div class = "col-sm-1">
+            <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"> Next </a>
+            <span th:unless="${currentPage < totalPages}">Next</span>
+        </div>
+        <div class="col-sm-1">
+            <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"> Last </a>
+            <span th:unless="${currentPage < totalPages}">Last</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

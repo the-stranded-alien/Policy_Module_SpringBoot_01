@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title> Policy </title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <hr>
+    <h2> Update Policy </h2>
+    <hr>
+    <form action="#" th:action="@{/policy/savePolicy}" th:object="${policy}" method="POST">
+        <input type="hidden" th:field="*{id}" />
+        Policy Name : <input type="text" th:field="*{policyName}" class="form-control mb-4 col-4" />
+        Remedy Type : <input type="text" th:field="*{remedyType}" class="form-control mb-4 col-4" />
+        Remedy Time : <input type="text" th:field="*{remedyTime}" class="form-control mb-4 col-4" />
+        Notify User : <input type="checkbox" th:field="*{notifyUser}" class="form-control mb-4 col-4" />
+        Notify Admin : <input type="checkbox" th:field="*{notifyAdmin}" class="form-control mb-4 col-4" />
+        Admin Email : <input type="text" th:field="*{adminEmail}" class="form-control mb-4 col-4" />
+        Admin Email Subject : <input type="text" th:field="*{adminEmailSubject}" class="form-control mb-4 col-4" />
+        <hr>
+        <button type="submit" class="btn btn-info col-2"> Update Policy </button>
+    </form>
+    <hr>
+    <a th:href = "@{/}"> Back to Policy List </a>
+</div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title> Activity </title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container my-2">
+    <h2> All Activities Performed On Your Files ! </h2>
+    <br>
+    <hr>
+    <a th:href="@{/}" class="btn btn-warning btn-sm mb-3"> Home </a>
+    <br>
+    <table border="1" class = "table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>
+                <a th:href="@{'/activity/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
+                    Log Time
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/activity/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
+                    User Name
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/activity/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
+                    User Directory
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/activity/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
+                    File Name
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/activity/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
+                    File Creation Time
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/activity/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
+                    Policy Id
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/activity/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
+                    Risk Id
+                </a>
+            </th>
+            <th>
+                <a th:href="@{'/activity/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
+                    Result
+                </a>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="act : ${listActivity}">
+            <td th:text="${act.activityLogTime}"></td>
+            <td th:text="${act.username}"></td>
+            <td th:text="${act.userDirectory}"></td>
+            <td th:text="${act.fileName}"></td>
+            <td th:text="${act.fileCreationTime}"></td>
+            <td th:text="${act.policyId}"></td>
+            <td th:text="${act.riskId}"></td>
+            <td th:text="${act.result}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${totalPages > 1}">
+        <div class="row col-sm-10">
+            Total Rows : [[${totalItems}]]
+        </div>
+        <div class = "col-sm-1">
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+						<a th:if="${currentPage != i}" th:href="@{'/risk/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"> [[${i}]] </a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+					</span>
+        </div>
+        <div class = "col-sm-1">
+            <a th:if="${currentPage < totalPages}" th:href="@{'/risk/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"> Next </a>
+            <span th:unless="${currentPage < totalPages}">Next</span>
+        </div>
+        <div class="col-sm-1">
+            <a th:if="${currentPage < totalPages}" th:href="@{'/risk/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"> Last </a>
+            <span th:unless="${currentPage < totalPages}">Last</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
